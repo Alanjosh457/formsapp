@@ -1,0 +1,126 @@
+/* General Layout */
+.editFormContainer {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  /* Sidebar - Stick to Left */
+  .sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+  }
+  
+  /* Adjust main content to account for sidebar width */
+  .mainFormArea {
+    margin-left: 250px;
+    flex-grow: 1;
+    padding: 20px;
+    background: #ecf0f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* Form Title Input */
+  .formInput {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Field List Expands Dynamically */
+  .fieldsContainer {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Individual Field Styling */
+  .fieldWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Label Styling */
+  .label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  /* "X" Delete Button */
+  .deleteBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .deleteBtn:hover {
+    background: #c0392b;
+  }
+  
+  /* Save Button */
+  .saveBtn {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .saveBtn:hover {
+    background: #219150;
+  }
+  
+  /* Add Button */
+  .addBtn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  
+  .addBtn:hover {
+    background: #2980b9;
+  }
+  
