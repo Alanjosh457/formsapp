@@ -13,19 +13,24 @@ const Createforms = () => {
       alert("You can only add up to 20 fields.");
       return;
     }
-    setFields([...fields, { type, label: "", placeholder: "", required: false }]);
+    setFields([
+      ...fields,
+      { type, label: "", placeholder: "", required: false } // ✅ Store as boolean
+    ]);
   };
 
   const removeField = (index) => {
-    const updatedFields = fields.filter((_, i) => i !== index);
-    setFields(updatedFields);
+    setFields(fields.filter((_, i) => i !== index));
   };
 
   const updateField = (index, key, value) => {
-    const updatedFields = fields.map((field, i) =>
-      i === index ? { ...field, [key]: value } : field
+    setFields(
+      fields.map((field, i) =>
+        i === index
+          ? { ...field, [key]: key === "required" ? Boolean(value) : value } // ✅ Ensure required is always a boolean
+          : field
+      )
     );
-    setFields(updatedFields);
   };
 
   const saveForm = async () => {
@@ -39,24 +44,24 @@ const Createforms = () => {
       return;
     }
 
-    // Check for empty labels
     for (let field of fields) {
       if (!field.label.trim()) {
         alert("Field labels cannot be empty.");
         return;
       }
     }
+    const sanitizedFields = fields.map((field, index) => ({
+      ...field,
+      required: String(field.required), // Convert to string "true" or "false"
+      order: index + 1
+    }));
+    
+
+
+    console.log("Saving form with fields:", sanitizedFields); // Debugging
 
     try {
-      const formWithOrder = {
-        title,
-        fields: fields.map((field, index) => ({
-          ...field,
-          order: index + 1,
-        })),
-      };
-
-      await createForm(formWithOrder);
+      await createForm({ title, fields: sanitizedFields });
       navigate("/");
     } catch (error) {
       console.error("Error saving form:", error);
@@ -65,17 +70,15 @@ const Createforms = () => {
 
   return (
     <div className={styles.createFormContainer}>
-      {/* Sidebar */}
       <div className={styles.sidebar}>
         <h3>Add Fields</h3>
-        <button className={styles.addFieldBtn} onClick={() => addField("text")}>Add Text</button>
-        <button className={styles.addFieldBtn} onClick={() => addField("email")}>Add Email</button>
-        <button className={styles.addFieldBtn} onClick={() => addField("password")}>Add Password</button>
-        <button className={styles.addFieldBtn} onClick={() => addField("number")}>Add Number</button>
-        <button className={styles.addFieldBtn} onClick={() => addField("date")}>Add Date</button>
+        {["text", "email", "password", "number", "date"].map((type) => (
+          <button key={type} className={styles.addFieldBtn} onClick={() => addField(type)}>
+            Add {type.charAt(0).toUpperCase() + type.slice(1)}
+          </button>
+        ))}
       </div>
 
-      {/* Main Form Area */}
       <div className={styles.mainFormArea}>
         <h2>Create Form</h2>
 
@@ -91,8 +94,7 @@ const Createforms = () => {
           {fields.map((field, index) => (
             <div key={index} className={styles.fieldWrapper}>
               <button className={styles.deleteBtn} onClick={() => removeField(index)}>✖</button>
-              
-              {/* Label Input */}
+
               <input
                 type="text"
                 placeholder="Field Label"
@@ -101,7 +103,6 @@ const Createforms = () => {
                 onChange={(e) => updateField(index, "label", e.target.value)}
               />
 
-              {/* Placeholder Input */}
               <input
                 type="text"
                 placeholder="Field Placeholder"
@@ -110,11 +111,10 @@ const Createforms = () => {
                 onChange={(e) => updateField(index, "placeholder", e.target.value)}
               />
 
-              {/* Required Checkbox */}
               <label className={styles.requiredCheckbox}>
                 <input
                   type="checkbox"
-                  checked={field.required}
+                  checked={field.required} // ✅ Checkbox properly reflects boolean value
                   onChange={(e) => updateField(index, "required", e.target.checked)}
                 />
                 Required
