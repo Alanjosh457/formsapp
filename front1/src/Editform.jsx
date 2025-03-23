@@ -35,7 +35,7 @@ const EditForm = () => {
       alert("You can only add up to 20 fields.");
       return;
     }
-    setFields([...fields, { type, label: "", placeholder: "" }]);
+    setFields([...fields, { type, label: "", placeholder: "", required: false }]);
   };
 
   const handleChange = (index, key, value) => {
@@ -50,18 +50,24 @@ const EditForm = () => {
     setFields(fields.filter((_, i) => i !== index));
   };
 
+  const toggleRequired = (index) => {
+    setFields((prevFields) =>
+      prevFields.map((field, i) =>
+        i === index ? { ...field, required: !field.required } : field
+      )
+    );
+  };
+
   const saveForm = async () => {
     if (!title.trim()) {
       alert("Form title cannot be empty.");
       return;
     }
 
-    const hasEmptyFields = fields.some(
-      (field) => !field.label.trim() || !field.placeholder.trim()
-    );
+    const hasEmptyLabels = fields.some((field) => !field.label.trim());
 
-    if (hasEmptyFields) {
-      alert("All fields must have a label and a placeholder.");
+    if (hasEmptyLabels) {
+      alert("All fields must have a label.");
       return;
     }
 
@@ -135,11 +141,22 @@ const EditForm = () => {
               />
               <input
                 type="text"
-                placeholder="Placeholder"
+                placeholder="Placeholder (Optional)"
                 value={field.placeholder}
                 onChange={(e) => handleChange(index, "placeholder", e.target.value)}
                 className={styles.formInput}
               />
+              
+              <div className={styles.checkboxWrapper}>
+                <label className={styles.checkboxLabel}>
+                  <input
+                    type="checkbox"
+                    checked={field.required}
+                    onChange={() => toggleRequired(index)}
+                  />
+                  Required
+                </label>
+              </div>
             </div>
           ))}
         </div>
