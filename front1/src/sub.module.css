@@ -1,0 +1,37 @@
+.homebtn {
+    display: inline-block;
+    margin-top: 10%;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff; /* Primary blue */
+    border: none;
+    border-radius: 8px; /* Smooth rounded corners */
+    cursor: pointer;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .homebtn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .homebtn:active {
+    transform: translateY(1px); /* Press effect */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Responsive: Adjust button on small screens */
+  @media (max-width: 600px) {
+    .homebtn {
+      width: 100%; /* Full width button */
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+  

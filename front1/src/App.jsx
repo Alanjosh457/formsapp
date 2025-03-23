@@ -8,6 +8,7 @@ import Formspage from './Formspage';
 import Createforms from './Createforms';
 import Viewforms from './Viewforms';
 import EditForm from './Editform';
+import Submission from './Submission';
 
 
 import './App.css';
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/form/create" element={<Createforms/>} />
         <Route path="/form/:id" element={<Viewforms />} />
         <Route path="/form/:id/edit" element={<EditForm/>} />
+        <Route path="form/:id/submit" element={<Submission />} />
       </Routes>
     </div>
   );

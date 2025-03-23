@@ -1,116 +1,209 @@
-/* General Container */
+/* General Container - Full Screen */
 .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    text-align: center;
-  }
-  
-  /* Title */
-  h1 {
-    color: #333;
-  }
-  
-  /* Create Form Button */
-  .createFormBtn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    text-align: center;
-    cursor: pointer;
-    margin-bottom: 20px;
-  }
-  
-  .createFormBtn a {
-    text-decoration: none;
-    color: white;
-  }
-  
-  /* Form List Container */
-  .formList {
-    display: flex;
-    flex-wrap: wrap;
+  width: 100%;  /* Full viewport width */
+  height: 100vh; /* Full viewport height */
 
-    gap: 15px;
-    padding: 0;
-    list-style-type: none;
-margin-left: -20%;  
-margin-top: 10%;}
-  
-  /* Each Form Item */
 
-  .formItem:hover {
-    transform: scale(1.05);
-  }
-  
-  /* Form Title Link */
-  .formItem a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-    margin-bottom: 5px;
-    margin-top: 5%;
-  }
-  
-  /* Buttons Container (for horizontal layout) */
-  .buttonContainer {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5px;
+  font-family: "Poppins", sans-serif;
+  text-align: left;  /* Align content to the left */
 
-  }
+    background-color: #ffffff; /* Light Blue Gray */
   
-  /* Icon Buttons */
-  .iconButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    gap: 60px;
-  }
   
-  .iconButton img {
-    width: 20px;
-    height: 20px;
-    transition: transform 0.2s;
-  }
-  
-  .iconButton:hover img {
-    transform: scale(1.2);
-  }
-  /* Each Form Item */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start; /* Align items to the left */
+ margin: 0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+
+
+}
+
+/* Title */
+h1 {
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 20px;
+  margin-left: 20px; /* Move title to the left */
+
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  width: 95.7%;
+  margin: 0;
+
+}
+
+/* Create Form Button */
+.createFormBtn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+  margin-left: 20px; /* Align button to the left */
+  margin-top: 4%;
+  margin-left: 3%;
+}
+
+.createFormBtn:hover {
+  background: #0056b3;
+}
+
+.createFormBtn a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+/* Form List - Left Aligned */
+.formList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start; /* Move all forms to the left */
+  padding: 20px;
+  list-style-type: none;
+  margin-left: 20px; /* Move forms further to the left */
+}
+
+/* Each Form Item */
 .formItem {
-    width: 180px;
-    height: 120px;
-    background: #f9f9f9;
-    display: flex;
-    flex-direction: column; /* Keeps the title above */
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s;
-    padding: 10px;
-    text-align: center;
-    
-  }
-  
-  /* Buttons Container (For Horizontal Layout) */
-  .buttonContainer {
-    display: flex;
-    flex-direction: row; /* Ensures buttons are side by side */
-    gap: 10px; /* Space between buttons */
-    justify-content: center;
-    align-items: center;
-    width: 100%; /* Ensure it stretches inside formItem */
-    margin-top: 5px;
-    margin-left: -50%;
-  }
-  
+  width: 230px;
+  height: 150px;
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  text-align: center;
+  position: relative;
+}
+
+.formItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Form Title */
+.formItem a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.formItem a:hover {
+  color: #0056b3;
+}
+
+/* Buttons Container */
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Icon Buttons */
+.iconButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.iconButton img {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.iconButton:hover img {
+  transform: scale(1.15);
+}
+
+
+
+
+/* Modal Overlay */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Box */
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Buttons */
+.modalButtons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* Confirm Delete Button */
+.confirmBtn {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Cancel Button */
+.cancelBtn {
+  background: #ccc;
+  color: black;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirmBtn:hover {
+  background: #d63031;
+}
+
+.cancelBtn:hover {
+  background: #b2bec3;
+}
+.noFormsText {
+  font-size: 18px;
+  color: #555;
+  text-align: center;
+  margin-top: 20px;
+  font-weight: bold;
+  margin-left: 4%;
+  margin-top: 10%;
+}
