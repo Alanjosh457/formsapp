@@ -10,36 +10,31 @@ const Viewforms = () => {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
 
- 
-
-
   useEffect(() => {
     getFormById(id)
       .then((fetchedForm) => {
-        console.log("Fetched Form:", fetchedForm);
-        console.log("Form Fields:", fetchedForm.fields); // 🔍 Check fields
-        
+        if (!fetchedForm || !fetchedForm.fields) {
+          console.error("Invalid form data:", fetchedForm);
+          return;
+        }
+
         setForm(fetchedForm);
         const initialData = {};
         const initialErrors = {};
-  
+
         fetchedForm.fields.forEach((field) => {
-          console.log(`Field: ${field.label}, Required:`, field.required); // Debug log
-          
           const fieldKey = field.label.replace(/\s+/g, "_");
           initialData[fieldKey] = "";
-          if (field.required === "true" || field.required === true || field.required === "1") {
+          if (["true", true, "1"].includes(field.required)) {
             initialErrors[fieldKey] = "";
           }
         });
-  
+
         setFormData(initialData);
         setErrors(initialErrors);
       })
       .catch((error) => console.error("Error fetching form:", error));
   }, [id]);
-  
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,71 +42,49 @@ const Viewforms = () => {
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
 
-
   const validateForm = () => {
     if (!form || !form.fields) return false;
-  
+
     let isValid = true;
     let newErrors = {};
-  
+
     form.fields.forEach((field) => {
       const fieldKey = field.label.replace(/\s+/g, "_");
       const value = formData[fieldKey]?.trim() || "";
-  
-      // Fix: Explicitly check for `required` instead of assuming its existence
-      const isRequired = field.required === "true" || field.required === true || field.required === "1";
-  
-      console.log(`Checking field: ${field.label}, Value: '${value}', Required: ${field.required}`);
-  
+      const isRequired = ["true", true, "1"].includes(field.required);
+
       if (isRequired && !value) {
-        console.log(`❌ ${field.label} is required but empty!`);
         newErrors[fieldKey] = "This field is required.";
         isValid = false;
       }
-  
+
       if (field.type === "email" && value && !/^\S+@\S+\.\S+$/.test(value)) {
-        console.log(`❌ Invalid email format for ${field.label}`);
         newErrors[fieldKey] = "Enter a valid email address.";
         isValid = false;
       }
-  
+
       if (field.type === "number" && value && isNaN(value)) {
-        console.log(`❌ ${field.label} must be a number`);
         newErrors[fieldKey] = "Enter a valid number.";
         isValid = false;
       }
     });
-  
+
     setErrors(newErrors);
     return isValid;
   };
-  
-
-
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    const isValid = validateForm(); // Store the validation result
-  
-    setTimeout(() => {
-      if (!isValid) {
-        alert("Please fill in all required fields before submitting.");
-        return; // ⛔ Prevent form submission and navigation
-      }
-  
-      console.log("✅ Form submitted successfully:", formData);
-      alert("Form submitted successfully!");
-      navigate("./submit"); // ✅ Only navigate when validation passes
-    }, 0); // Ensure validation state updates before navigating
+
+    if (!validateForm()) {
+      alert("Please fill in all required fields before submitting.");
+      return;
+    }
+
+    console.log("✅ Form submitted successfully:", formData);
+    alert("Form submitted successfully!");
+    navigate("./submit");
   };
-  
-
-
-
-
 
   if (!form) return <div className={styles.loading}>Loading form...</div>;
 
@@ -122,10 +95,12 @@ const Viewforms = () => {
         <form className={styles.form} onSubmit={handleSubmit}>
           {form.fields.map((field, index) => {
             const fieldKey = field.label.replace(/\s+/g, "_");
+            const isRequired = ["true", true, "1"].includes(field.required);
+
             return (
               <div key={index} className={styles.formGroup}>
                 <label className={styles.label}>
-                  {field.label} {field.required === "true" && <span style={{ color: "red" }}>*</span>}
+                  {field.label} {isRequired && <span className={styles.requiredIcon}>*</span>}
                 </label>
                 <input
                   type={field.type}
